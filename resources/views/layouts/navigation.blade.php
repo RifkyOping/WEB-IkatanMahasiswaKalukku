@@ -9,22 +9,22 @@
             <div class="flex justify-center flex-none">
                 <div class="flex space-x-1 bg-[#0F2A1D]/70 p-1.5 rounded-[15px] shadow-inner">
 
-                    <a href="{{ url('/') }}" 
+                    <a href="{{ route('welcome') }}" 
                        class="px-6 py-2 rounded-[10px] text-xs font-bold transition duration-200 {{ request()->is('/') ? 'bg-[#051F20] text-white shadow' : 'text-white hover:text-gray-200' }}">
                         Beranda
                     </a>
 
-                    <a href="#" 
+                    <a href="{{ url('/tentang') }}"  
                        class="px-6 py-2 rounded-[10px] text-xs font-bold transition duration-200 {{ request()->routeIs('tentang') ? 'bg-[#051F20] text-white shadow' : 'text-white hover:text-gray-200' }}">
                         Tentang
                     </a>
 
-                    <a href="#" 
+                    <a href="{{ route('berita') }}" 
                        class="px-6 py-2 rounded-[10px] text-xs font-bold transition duration-200 {{ request()->routeIs('berita') ? 'bg-[#051F20] text-white shadow' : 'text-white hover:text-gray-200' }}">
                         Berita
                     </a>
 
-                    <a href="#" 
+                    <a href="{{ route('galeri') }}" 
                        class="px-6 py-2 rounded-[10px] text-xs font-bold transition duration-200 {{ request()->routeIs('galeri') ? 'bg-[#051F20] text-white shadow' : 'text-white hover:text-gray-200' }}">
                         Galeri
                     </a>
