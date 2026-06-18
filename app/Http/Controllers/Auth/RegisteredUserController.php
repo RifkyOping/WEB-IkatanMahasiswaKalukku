@@ -44,7 +44,11 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        if (!Auth::check()) {
+            Auth::login($user);
+        } else {
+            return redirect(route('dashboard', absolute: false))->with('success', 'Admin baru berhasil ditambahkan!');
+        }
 
         return redirect(route('dashboard', absolute: false));
     }
