@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/image/logo.png" alt="Logo Ikatan Mahasiswa Kalukku" width="200">
+</p>
+
 # Website Ikatan Mahasiswa Kalukku (IMK)
 
 Website resmi Ikatan Mahasiswa Kalukku (IMK) Kabupaten Majene. 
