@@ -35,6 +35,9 @@ class AdminSettingController extends Controller
             'ketua_photo' => 'nullable|image|mimes:jpeg,png,jpg,webp',
             'sekretaris_photo' => 'nullable|image|mimes:jpeg,png,jpg,webp',
             'bendahara_photo' => 'nullable|image|mimes:jpeg,png,jpg,webp',
+            'ketua_name' => 'nullable|string|max:255',
+            'sekretaris_name' => 'nullable|string|max:255',
+            'bendahara_name' => 'nullable|string|max:255',
         ]);
 
         $setting = Setting::firstOrCreate([]);

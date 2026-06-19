@@ -21,6 +21,10 @@
                             class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('dashboard') ? 'border-white text-white' : 'border-transparent text-imk-100 hover:text-white hover:border-imk-200' }} text-sm font-medium leading-5 transition duration-150 ease-in-out">
                             {{ __('Dashboard') }}
                         </a>
+                        <a href="{{ route('admin.users.index') }}"
+                            class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('admin.users.*') ? 'border-white text-white' : 'border-transparent text-imk-100 hover:text-white hover:border-imk-200' }} text-sm font-medium leading-5 transition duration-150 ease-in-out">
+                            Akun
+                        </a>
                         <a href="{{ route('admin.news.index') }}"
                             class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('admin.news.*') ? 'border-white text-white' : 'border-transparent text-imk-100 hover:text-white hover:border-imk-200' }} text-sm font-medium leading-5 transition duration-150 ease-in-out">
                             Berita
@@ -35,7 +39,7 @@
                         </a>
                         <a href="{{ route('admin.settings.edit') }}"
                             class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('admin.settings.*') ? 'border-white text-white' : 'border-transparent text-imk-100 hover:text-white hover:border-imk-200' }} text-sm font-medium leading-5 transition duration-150 ease-in-out">
-                            Kontak & Media Sosial
+                            Pengaturan Beranda
                         </a>
                         <a href="{{ route('admin.organizations.index') }}"
                             class="inline-flex items-center px-1 pt-1 border-b-2 {{ request()->routeIs('admin.organizations.*') || request()->routeIs('admin.members.*') ? 'border-white text-white' : 'border-transparent text-imk-100 hover:text-white hover:border-imk-200' }} text-sm font-medium leading-5 transition duration-150 ease-in-out">
@@ -107,6 +111,10 @@
                 <a href="{{ route('dashboard') }}"
                     class="block w-full ps-3 pe-4 py-2 border-l-4 {{ request()->routeIs('dashboard') ? 'border-white text-white bg-imk-500' : 'border-transparent text-imk-100 hover:text-white hover:bg-imk-500 hover:border-imk-300' }} text-base font-medium focus:outline-none transition duration-150 ease-in-out">
                     {{ __('Dashboard') }}
+                </a>
+                <a href="{{ route('admin.users.index') }}"
+                    class="block w-full ps-3 pe-4 py-2 border-l-4 {{ request()->routeIs('admin.users.*') ? 'border-white text-white bg-imk-500' : 'border-transparent text-imk-100 hover:text-white hover:bg-imk-500 hover:border-imk-300' }} text-base font-medium focus:outline-none transition duration-150 ease-in-out">
+                    Kelola Akun
                 </a>
                 <a href="{{ route('admin.news.index') }}"
                     class="block w-full ps-3 pe-4 py-2 border-l-4 {{ request()->routeIs('admin.news.*') ? 'border-white text-white bg-imk-500' : 'border-transparent text-imk-100 hover:text-white hover:bg-imk-500 hover:border-imk-300' }} text-base font-medium focus:outline-none transition duration-150 ease-in-out">

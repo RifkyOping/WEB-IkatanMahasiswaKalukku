@@ -29,6 +29,9 @@ class Setting extends Model
         'ketua_photo',
         'sekretaris_photo',
         'bendahara_photo',
+        'ketua_name',
+        'sekretaris_name',
+        'bendahara_name',
     ];
 
     protected $casts = [

@@ -3,7 +3,7 @@
 @section('content')
 <div x-data="{ 
     open: false, 
-    selectedNews: { title: '', content: '', images: [], date: '', source_link: '' },
+    selectedNews: { title: '', content: '', images: [], date: '', source_link: '', url: '' },
     currentImageIndex: 0,
     nextImage() {
         if (this.currentImageIndex < this.selectedNews.images.length - 1) {
@@ -20,18 +20,22 @@
         }
     },
     shareContent() {
-        const shareData = {
-            title: this.selectedNews.title,
-            text: 'Lihat berita ini di website Ikatan Mahasiswa Kalukku:\n' + this.selectedNews.title,
-            url: window.location.href
-        };
-        if (navigator.share) {
-            navigator.share(shareData).catch(console.error);
-        } else {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                alert('Link halaman berhasil disalin ke clipboard!');
-            });
-        }
+        navigator.clipboard.writeText(this.selectedNews.url).then(() => {
+            if(typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: 'Link berita berhasil disalin ke clipboard!',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true
+                });
+            } else {
+                alert('Link berita berhasil disalin ke clipboard!');
+            }
+        });
     }
 }">
     
@@ -60,7 +64,8 @@
                 content: `{{ addslashes(str_replace(["\r", "\n"], ['', '\n'], $item->content)) }}`,
                 images: {{ $imagesJson }},
                 date: '{{ $item->created_at->format('d M Y') }}',
-                source_link: '{{ $item->source_link ? addslashes($item->source_link) : '' }}'
+                source_link: '{{ $item->source_link ? addslashes($item->source_link) : '' }}',
+                url: '{{ route('news.show', $item->slug) }}'
             }" class="w-full flex items-center gap-6 p-4 rounded-2xl hover:bg-gray-50 transition border border-transparent hover:border-gray-100 text-left">
                 
                 <div class="w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center">
@@ -145,8 +150,8 @@
                 </template>
                 
                 <button @click="shareContent()" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 hover:bg-emerald-600 hover:text-white rounded-full font-bold transition-all duration-300">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
-                    <span>Bagikan</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                    <span>Salin Link</span>
                 </button>
             </div>
         </div>

@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <x-slot name="header">
         <h2 class="font-black text-3xl text-[#051F20] leading-tight">
-            {{ __('Pengaturan Web') }}
+            {{ __('Pengaturan Beranda') }}
         </h2>
     </x-slot>
 
@@ -42,8 +42,12 @@
                                     <img src="{{ asset('image/pengurus/ketua.jpeg') }}" alt="Ketua Default" id="ketua_photo_preview" class="w-full h-40 object-cover rounded-xl mb-2 opacity-50">
                                 @endif
                                 <input type="hidden" name="ketua_photo_cropped" id="ketua_photo_cropped">
-                                <input type="file" name="ketua_photo" id="ketua_photo" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-imk-50 file:text-imk-700 hover:file:bg-imk-100">
+                                <input type="file" name="ketua_photo" id="ketua_photo" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-imk-50 file:text-imk-700 hover:file:bg-imk-100 mb-3">
                                 @error('ketua_photo') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+
+                                <label for="ketua_name" class="block text-sm font-bold text-gray-700 mb-1">Nama Ketua Umum</label>
+                                <input type="text" name="ketua_name" id="ketua_name" value="{{ old('ketua_name', $setting->ketua_name) }}" placeholder="Nama Ketua" class="block w-full border-gray-200 focus:border-imk-400 focus:ring-imk-400 rounded-2xl shadow-sm text-gray-700 p-2 bg-white hover:bg-gray-50 transition-colors">
+                                @error('ketua_name') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                             </div>
 
                             <!-- Sekretaris Photo -->
@@ -55,8 +59,12 @@
                                     <img src="{{ asset('image/pengurus/sekretaris.jpg') }}" alt="Sekretaris Default" id="sekretaris_photo_preview" class="w-full h-40 object-cover rounded-xl mb-2 opacity-50">
                                 @endif
                                 <input type="hidden" name="sekretaris_photo_cropped" id="sekretaris_photo_cropped">
-                                <input type="file" name="sekretaris_photo" id="sekretaris_photo" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-imk-50 file:text-imk-700 hover:file:bg-imk-100">
+                                <input type="file" name="sekretaris_photo" id="sekretaris_photo" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-imk-50 file:text-imk-700 hover:file:bg-imk-100 mb-3">
                                 @error('sekretaris_photo') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+
+                                <label for="sekretaris_name" class="block text-sm font-bold text-gray-700 mb-1">Nama Sekretaris Umum</label>
+                                <input type="text" name="sekretaris_name" id="sekretaris_name" value="{{ old('sekretaris_name', $setting->sekretaris_name) }}" placeholder="Nama Sekretaris" class="block w-full border-gray-200 focus:border-imk-400 focus:ring-imk-400 rounded-2xl shadow-sm text-gray-700 p-2 bg-white hover:bg-gray-50 transition-colors">
+                                @error('sekretaris_name') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                             </div>
 
                             <!-- Bendahara Photo -->
@@ -68,8 +76,12 @@
                                     <img src="{{ asset('image/pengurus/bendahara.jpeg') }}" alt="Bendahara Default" id="bendahara_photo_preview" class="w-full h-40 object-cover rounded-xl mb-2 opacity-50">
                                 @endif
                                 <input type="hidden" name="bendahara_photo_cropped" id="bendahara_photo_cropped">
-                                <input type="file" name="bendahara_photo" id="bendahara_photo" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-imk-50 file:text-imk-700 hover:file:bg-imk-100">
+                                <input type="file" name="bendahara_photo" id="bendahara_photo" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-imk-50 file:text-imk-700 hover:file:bg-imk-100 mb-3">
                                 @error('bendahara_photo') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+
+                                <label for="bendahara_name" class="block text-sm font-bold text-gray-700 mb-1">Nama Bendahara Umum</label>
+                                <input type="text" name="bendahara_name" id="bendahara_name" value="{{ old('bendahara_name', $setting->bendahara_name) }}" placeholder="Nama Bendahara" class="block w-full border-gray-200 focus:border-imk-400 focus:ring-imk-400 rounded-2xl shadow-sm text-gray-700 p-2 bg-white hover:bg-gray-50 transition-colors">
+                                @error('bendahara_name') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                             </div>
                         </div>
                     </div>
@@ -280,9 +292,10 @@
 
                 if (canvas) {
                     const base64Image = canvas.toDataURL('image/jpeg', 0.9);
-                    
                     document.getElementById(currentInputId + '_cropped').value = base64Image;
-                    document.getElementById(currentInputId + '_preview').src = base64Image;
+                    const previewImage = document.getElementById(currentInputId + '_preview');
+                    previewImage.src = base64Image;
+                    previewImage.classList.remove('opacity-50');
                     
                     cropModal.classList.add('hidden');
                     cropper.destroy();

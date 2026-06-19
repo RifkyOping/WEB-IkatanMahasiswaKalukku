@@ -217,11 +217,15 @@
                                 class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#051F20]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
                         </div>
-                        @foreach($sekretaris as $org)
-                            @foreach($org->members as $member)
-                                <h3 class="text-xl lg:text-2xl font-bold text-[#051F20] group-hover:text-emerald-700 transition-colors">{{ $member->name }}</h3>
+                        @if($setting->sekretaris_name)
+                            <h3 class="text-xl lg:text-2xl font-bold text-[#051F20] group-hover:text-emerald-700 transition-colors">{{ $setting->sekretaris_name }}</h3>
+                        @else
+                            @foreach($sekretaris as $org)
+                                @foreach($org->members as $member)
+                                    <h3 class="text-xl lg:text-2xl font-bold text-[#051F20] group-hover:text-emerald-700 transition-colors">{{ $member->name }}</h3>
+                                @endforeach
                             @endforeach
-                        @endforeach
+                        @endif
                         <p class="text-sm text-emerald-600 font-bold mt-2 uppercase tracking-wide">Sekretaris Umum</p>
                         <p class="text-xs text-gray-500 mt-1">{{ $setting->org_period ?? 'Periode 2025-2026' }}</p>
                     </div>
@@ -233,11 +237,15 @@
                                 class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#051F20]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
                         </div>
-                        @foreach($ketua as $org)
-                            @foreach($org->members as $member)
-                                <h3 class="text-2xl lg:text-3xl font-black text-[#051F20] group-hover:text-emerald-700 transition-colors">{{ $member->name }}</h3>
+                        @if($setting->ketua_name)
+                            <h3 class="text-2xl lg:text-3xl font-black text-[#051F20] group-hover:text-emerald-700 transition-colors">{{ $setting->ketua_name }}</h3>
+                        @else
+                            @foreach($ketua as $org)
+                                @foreach($org->members as $member)
+                                    <h3 class="text-2xl lg:text-3xl font-black text-[#051F20] group-hover:text-emerald-700 transition-colors">{{ $member->name }}</h3>
+                                @endforeach
                             @endforeach
-                        @endforeach
+                        @endif
                         <p class="text-base text-emerald-600 font-bold mt-2 uppercase tracking-widest">Ketua Umum</p>
                         <p class="text-sm text-gray-500 mt-1 font-medium">{{ $setting->org_period ?? 'Periode 2025-2026' }}</p>
                     </div>
@@ -249,11 +257,15 @@
                                 class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#051F20]/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
                         </div>
-                        @foreach($bendahara as $org)
-                            @foreach($org->members as $member)
-                                <h3 class="text-xl lg:text-2xl font-bold text-[#051F20] group-hover:text-emerald-700 transition-colors">{{ $member->name }}</h3>
+                        @if($setting->bendahara_name)
+                            <h3 class="text-xl lg:text-2xl font-bold text-[#051F20] group-hover:text-emerald-700 transition-colors">{{ $setting->bendahara_name }}</h3>
+                        @else
+                            @foreach($bendahara as $org)
+                                @foreach($org->members as $member)
+                                    <h3 class="text-xl lg:text-2xl font-bold text-[#051F20] group-hover:text-emerald-700 transition-colors">{{ $member->name }}</h3>
+                                @endforeach
                             @endforeach
-                        @endforeach
+                        @endif
                         <p class="text-sm text-emerald-600 font-bold mt-2 uppercase tracking-wide">Bendahara Umum</p>
                         <p class="text-xs text-gray-500 mt-1">{{ $setting->org_period ?? 'Periode 2025-2026' }}</p>
                     </div>

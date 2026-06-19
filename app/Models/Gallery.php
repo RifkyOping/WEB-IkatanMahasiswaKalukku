@@ -9,7 +9,7 @@ class Gallery extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'date', 'images'];
+    protected $fillable = ['title', 'content', 'date', 'end_date', 'images', 'drive_link'];
 
     protected $casts = [
         'images' => 'array',

@@ -16,6 +16,7 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/berita', [NewsController::class, 'index'])->name('berita');
 Route::get('/berita/{slug}', [NewsController::class, 'show'])->name('news.show');
 Route::get('/galeri', [GalleryController::class, 'index'])->name('galeri');
+Route::get('/galeri/{gallery}', [GalleryController::class, 'show'])->name('galeri.show');
 Route::get('/lampiran', [AttachmentController::class, 'index'])->name('lampiran');
 Route::get('/pendaftaran', [RegistrationController::class, 'create'])->name('pendaftaran');
 Route::post('/pendaftaran', [RegistrationController::class, 'store'])->name('pendaftaran.store');
@@ -41,6 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('admin/galleries', AdminGalleryController::class)->names('admin.galleries');
     Route::resource('admin/attachments', AdminAttachmentController::class)->names('admin.attachments');
     Route::patch('admin/attachments/{attachment}/toggle-visibility', [AdminAttachmentController::class, 'toggleVisibility'])->name('admin.attachments.toggleVisibility');
+    
+    // User / Account Routes
+    Route::get('/admin/users', [\App\Http\Controllers\AdminUserController::class, 'index'])->name('admin.users.index');
     
     // Organization Structure Routes
     Route::resource('admin/organizations', App\Http\Controllers\AdminOrganizationController::class)->names('admin.organizations');

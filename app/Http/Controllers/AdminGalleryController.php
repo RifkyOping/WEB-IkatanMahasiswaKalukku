@@ -25,6 +25,8 @@ class AdminGalleryController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required',
             'date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:date',
+            'drive_link' => 'nullable|url|max:255',
             'images' => 'required|array|min:1|max:3',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif'
         ], [
@@ -32,7 +34,7 @@ class AdminGalleryController extends Controller
             'images.required' => 'Minimal harus mengunggah 1 foto.',
         ]);
 
-        $data = $request->only(['title', 'content', 'date']);
+        $data = $request->only(['title', 'content', 'date', 'end_date', 'drive_link']);
 
         $imagePaths = [];
         if ($request->hasFile('images')) {
@@ -58,13 +60,15 @@ class AdminGalleryController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required',
             'date' => 'required|date',
+            'end_date' => 'nullable|date|after_or_equal:date',
+            'drive_link' => 'nullable|url|max:255',
             'images' => 'nullable|array|max:3',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif'
         ], [
             'images.max' => 'Maksimal foto yang diizinkan adalah 3.',
         ]);
 
-        $data = $request->only(['title', 'content', 'date']);
+        $data = $request->only(['title', 'content', 'date', 'end_date', 'drive_link']);
 
         if ($request->hasFile('images')) {
             if ($gallery->images && is_array($gallery->images)) {

@@ -3,7 +3,7 @@
 @section('content')
 <div x-data="{ 
     open: false, 
-    selectedNews: { title: '', content: '', images: [], date: '' },
+    selectedNews: { title: '', content: '', images: [], date: '', endDate: '', driveLink: '', url: '' },
     currentImageIndex: 0,
     nextImage() {
         if (this.currentImageIndex < this.selectedNews.images.length - 1) {
@@ -20,18 +20,22 @@
         }
     },
     shareContent() {
-        const shareData = {
-            title: this.selectedNews.title,
-            text: 'Lihat galeri kegiatan ini di website Ikatan Mahasiswa Kalukku:\n' + this.selectedNews.title,
-            url: window.location.href
-        };
-        if (navigator.share) {
-            navigator.share(shareData).catch(console.error);
-        } else {
-            navigator.clipboard.writeText(window.location.href).then(() => {
+        navigator.clipboard.writeText(this.selectedNews.url).then(() => {
+            if(typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: 'Link kegiatan berhasil disalin ke clipboard!',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true
+                });
+            } else {
                 alert('Link halaman berhasil disalin ke clipboard!');
-            });
-        }
+            }
+        });
     }
 }">
     
@@ -58,7 +62,10 @@
             title: '{{ addslashes($item->title) }}',
             content: `{{ addslashes(str_replace(["\r", "\n"], ['', '\n'], $item->content)) }}`,
             images: {{ $imagesJson }},
-            date: '{{ $item->date ? \Carbon\Carbon::parse($item->date)->format('d M Y') : ($item->created_at ? $item->created_at->format('d M Y') : '') }}'
+            date: '{{ $item->date ? \Carbon\Carbon::parse($item->date)->format('d M Y') : ($item->created_at ? $item->created_at->format('d M Y') : '') }}',
+            endDate: '{{ $item->end_date ? \Carbon\Carbon::parse($item->end_date)->format('d M Y') : '' }}',
+            driveLink: '{{ $item->drive_link ?? '' }}',
+            url: '{{ route('galeri.show', $item->id) }}'
         }" class="group text-left focus:outline-none w-full">
             <div class="overflow-hidden rounded-2xl shadow-md transition duration-300 group-hover:shadow-2xl bg-gray-100 flex items-center justify-center">
                 @if(count($imagesArray) > 0)
@@ -134,12 +141,24 @@
             </div>
             
            <h2 class="text-3xl font-black text-[#051F20]" x-text="selectedNews.title"></h2>
-           <p class="text-sm text-emerald-700 font-bold mt-2" x-text="selectedNews.date"></p>
+           <p class="text-sm text-emerald-700 font-bold mt-2">
+                <span x-text="selectedNews.date"></span>
+                <template x-if="selectedNews.endDate">
+                    <span> - <span x-text="selectedNews.endDate"></span></span>
+                </template>
+           </p>
            <p class="text-gray-700 mt-6 leading-relaxed text-lg whitespace-pre-line" x-text="selectedNews.content"></p>
            
             <div class="mt-8 pt-6 border-t border-gray-100 flex flex-wrap gap-4 items-center">
+                <template x-if="selectedNews.driveLink">
+                    <a :href="selectedNews.driveLink" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 bg-imk-600 text-white hover:bg-imk-700 rounded-full font-bold shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        <span>Lihat Dokumentasi Lengkap</span>
+                    </a>
+                </template>
+
                 <button @click="shareContent()" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-100 text-gray-700 hover:bg-emerald-600 hover:text-white rounded-full font-bold transition-all duration-300">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
                     <span>Bagikan</span>
                 </button>
             </div>
