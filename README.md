@@ -26,67 +26,7 @@ Platform ini merupakan pusat informasi, publikasi kegiatan, serta pengelolaan ad
 * **Database:** MySQL / MariaDB
 * **Ekstensi Tambahan:** Cropper.js (Pemotongan foto), SweetAlert2 (Notifikasi elegan), AOS (Animasi *scroll*)
 
-## 💻 Panduan Instalasi (Lokal)
 
-Pastikan Anda telah menginstal PHP, Composer, Node.js, dan database server (XAMPP/Laragon) di komputer Anda.
-
-1. **Clone Repositori & Masuk ke Direktori**
-   ```bash
-   git clone <link-repositori-anda>
-   cd Ikatan-Mahasiswa-Kalukku
-   ```
-
-2. **Instal Dependensi Backend (PHP)**
-   ```bash
-   composer install
-   ```
-
-3. **Instal Dependensi Frontend (Node.js)**
-   ```bash
-   npm install
-   npm run build
-   ```
-
-4. **Konfigurasi Environment**
-   Salin file `.env.example` menjadi `.env`.
-   ```bash
-   cp .env.example .env
-   ```
-   Sesuaikan baris koneksi database pada file `.env` dengan kredensial database lokal Anda:
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=nama_database_anda
-   DB_USERNAME=root
-   DB_PASSWORD=
-   ```
-
-5. **Generate Application Key**
-   ```bash
-   php artisan key:generate
-   ```
-
-6. **Migrasi Database**
-   ```bash
-   php artisan migrate
-   ```
-
-7. **Hubungkan Folder Storage (Sangat Penting)**
-   Perintah ini wajib dijalankan agar file foto, dokumen, dan media yang diunggah dari Dashboard Admin bisa ditampilkan di website.
-   ```bash
-   php artisan storage:link
-   ```
-
-8. **Jalankan Server Lokal**
-   ```bash
-   php artisan serve
-   ```
-   Aplikasi sekarang dapat diakses melalui browser di alamat: `http://localhost:8000`.
-
-## 🔐 Akses Admin (Dashboard)
-
-Untuk mengakses halaman Admin, Anda perlu login di rute `/login`. Jika aplikasi belum memiliki akun admin sama sekali, silakan daftarkan satu akun melalui rute pendaftaran bawaan Laravel (jika aktif) atau tambahkan secara manual melalui database.
 
 ## 📄 Lisensi
 
